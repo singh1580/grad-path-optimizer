@@ -28,6 +28,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/jobs" element={<Jobs />} />
+              <Route path="/jobs/:jobId" element={<Jobs />} />
               <Route path="/internships" element={<Internships />} />
               <Route path="/resources" element={<Resources />} />
               <Route path="/auth" element={<Auth />} />

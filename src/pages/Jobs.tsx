@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import { Search, Filter } from "lucide-react";
+import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import JobCard, { JobCardProps } from "@/components/jobs/JobCard";
 import { Button } from "@/components/ui/button";
@@ -85,6 +86,22 @@ const experiences = ["Entry Level", "Mid Level", "Senior Level", "Director", "Ex
 
 const Jobs = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  
+  const handleSearch = () => {
+    console.log("Searching for:", searchTerm);
+    // Search functionality would be implemented here
+  };
+
+  const handleFilterApply = () => {
+    console.log("Applying filters");
+    // Filter application would be implemented here
+  };
+
+  const handleFilterReset = () => {
+    console.log("Resetting all filters");
+    // Reset logic would be implemented here
+  };
   
   return (
     <Layout>
@@ -112,7 +129,7 @@ const Jobs = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-            <Button className="bg-career-purple hover:bg-career-purple/90">
+            <Button className="bg-career-purple hover:bg-career-purple/90" onClick={handleSearch}>
               Search Jobs
             </Button>
           </div>
@@ -128,7 +145,12 @@ const Jobs = () => {
               <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-5">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-lg font-semibold">Filters</h2>
-                  <Button variant="ghost" size="sm" className="text-sm text-career-purple">
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="text-sm text-career-purple"
+                    onClick={handleFilterReset}
+                  >
                     Reset All
                   </Button>
                 </div>
@@ -187,7 +209,10 @@ const Jobs = () => {
                   
                   <Separator className="my-4" />
                   
-                  <Button className="w-full bg-career-purple hover:bg-career-purple/90">
+                  <Button 
+                    className="w-full bg-career-purple hover:bg-career-purple/90"
+                    onClick={handleFilterApply}
+                  >
                     Apply Filters
                   </Button>
                 </div>
@@ -213,25 +238,52 @@ const Jobs = () => {
               
               <div className="space-y-4">
                 {JOBS_DATA.map((job) => (
-                  <JobCard key={job.id} {...job} />
+                  <Link to={`/jobs/${job.id}`} key={job.id} className="block hover:no-underline">
+                    <JobCard {...job} />
+                  </Link>
                 ))}
               </div>
               
               <div className="mt-8 flex justify-center">
                 <div className="flex items-center gap-2">
-                  <Button variant="outline" size="sm" className="text-gray-500" disabled>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="text-gray-500" 
+                    disabled={currentPage === 1}
+                    onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                  >
                     Previous
                   </Button>
-                  <Button variant="outline" size="sm" className="bg-career-purple text-white">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className={currentPage === 1 ? "bg-career-purple text-white" : ""}
+                    onClick={() => setCurrentPage(1)}
+                  >
                     1
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className={currentPage === 2 ? "bg-career-purple text-white" : ""}
+                    onClick={() => setCurrentPage(2)}
+                  >
                     2
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className={currentPage === 3 ? "bg-career-purple text-white" : ""}
+                    onClick={() => setCurrentPage(3)}
+                  >
                     3
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => setCurrentPage(prev => prev + 1)}
+                  >
                     Next
                   </Button>
                 </div>
