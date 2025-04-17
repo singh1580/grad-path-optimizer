@@ -52,6 +52,14 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+                // Custom colors for the career platform
+                career: {
+                  purple: '#8B5CF6',
+                  blue: '#0EA5E9',
+                  magenta: '#D946EF',
+                  darkText: '#1A1F2C',
+                  lightBg: '#F9FAFB',
+                },
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
