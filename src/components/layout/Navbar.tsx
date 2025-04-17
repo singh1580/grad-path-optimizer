@@ -1,9 +1,39 @@
 
-import { Link } from "react-router-dom";
-import { Search, BriefcaseBusiness, GraduationCap, BookOpen, User } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Search, BriefcaseBusiness, GraduationCap, LogOut, User, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
+import { toast } from "sonner";
 
 const Navbar = () => {
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut();
+    toast.success("Signed out successfully");
+    navigate("/");
+  };
+
+  const getUserInitials = () => {
+    if (!user) return "U";
+    const fullName = user.user_metadata.full_name || "";
+    if (!fullName) return user.email?.charAt(0).toUpperCase() || "U";
+    
+    const names = fullName.split(" ");
+    if (names.length === 1) return names[0].charAt(0).toUpperCase();
+    return `${names[0].charAt(0)}${names[names.length - 1].charAt(0)}`.toUpperCase();
+  };
+
   return (
     <nav className="fixed top-0 w-full bg-white border-b border-gray-200 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -41,14 +71,52 @@ const Navbar = () => {
                 />
               </div>
             </div>
-            <Button variant="ghost" className="hidden md:flex items-center">
-              <User className="h-5 w-5 mr-2" />
-              <span>Sign In</span>
-            </Button>
-            <Button className="bg-career-purple hover:bg-career-purple/90">
-              <BriefcaseBusiness className="h-5 w-5 mr-2" />
-              <span>Post a Job</span>
-            </Button>
+            
+            {user ? (
+              // User is logged in
+              <div className="flex items-center space-x-4">
+                <Button className="bg-career-purple hover:bg-career-purple/90">
+                  <BriefcaseBusiness className="h-5 w-5 mr-2" />
+                  <span>Post a Job</span>
+                </Button>
+                
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Avatar className="cursor-pointer">
+                      <AvatarFallback className="bg-career-purple text-white">
+                        {getUserInitials()}
+                      </AvatarFallback>
+                    </Avatar>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <DropdownMenuLabel>
+                      {user.user_metadata.full_name || user.email}
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => navigate("/profile")}>
+                      <User className="mr-2 h-4 w-4" />
+                      <span>Profile</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={handleSignOut}>
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Log out</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            ) : (
+              // User is not logged in
+              <div className="flex items-center space-x-2">
+                <Button variant="ghost" className="hidden md:flex items-center" onClick={() => navigate("/auth")}>
+                  <User className="h-5 w-5 mr-2" />
+                  <span>Sign In</span>
+                </Button>
+                <Button className="bg-career-purple hover:bg-career-purple/90" onClick={() => navigate("/auth")}>
+                  <UserPlus className="h-5 w-5 mr-2" />
+                  <span>Sign Up</span>
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </div>
