@@ -5,6 +5,7 @@ import Layout from "@/components/layout/Layout";
 import AiMatchSection from "@/components/home/AiMatchSection";
 import JobCard, { JobCardProps } from "@/components/jobs/JobCard";
 import ResourceCard, { ResourceCardProps } from "@/components/resources/ResourceCard";
+import { Link } from "react-router-dom";
 
 const FEATURED_JOBS: JobCardProps[] = [
   {
@@ -90,9 +91,11 @@ const Index = () => {
                     className="pl-10 pr-4 py-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-career-purple"
                   />
                 </div>
-                <Button className="bg-career-purple hover:bg-career-purple/90 text-white px-6 py-3 rounded-md">
-                  Search Jobs
-                </Button>
+                <Link to="/jobs">
+                  <Button className="bg-career-purple hover:bg-career-purple/90 text-white px-6 py-3 rounded-md">
+                    Search Jobs
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -113,9 +116,11 @@ const Index = () => {
               </div>
               <h3 className="mt-4 text-xl font-semibold text-career-darkText">Private Sector</h3>
               <p className="mt-2 text-gray-600">Explore opportunities in corporate and startup environments</p>
-              <Button variant="link" className="mt-4 text-career-purple">
-                Browse Jobs
-              </Button>
+              <Link to="/jobs">
+                <Button variant="link" className="mt-4 text-career-purple">
+                  Browse Jobs
+                </Button>
+              </Link>
             </div>
 
             <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-6 text-center border border-gray-100">
@@ -124,9 +129,11 @@ const Index = () => {
               </div>
               <h3 className="mt-4 text-xl font-semibold text-career-darkText">Government Sector</h3>
               <p className="mt-2 text-gray-600">Find public service positions and government opportunities</p>
-              <Button variant="link" className="mt-4 text-career-blue">
-                Browse Jobs
-              </Button>
+              <Link to="/jobs">
+                <Button variant="link" className="mt-4 text-career-blue">
+                  Browse Jobs
+                </Button>
+              </Link>
             </div>
 
             <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-6 text-center border border-gray-100">
@@ -135,9 +142,11 @@ const Index = () => {
               </div>
               <h3 className="mt-4 text-xl font-semibold text-career-darkText">International Jobs</h3>
               <p className="mt-2 text-gray-600">Access global opportunities and overseas positions</p>
-              <Button variant="link" className="mt-4 text-career-magenta">
-                Browse Jobs
-              </Button>
+              <Link to="/jobs">
+                <Button variant="link" className="mt-4 text-career-magenta">
+                  Browse Jobs
+                </Button>
+              </Link>
             </div>
 
             <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-6 text-center border border-gray-100">
@@ -146,9 +155,11 @@ const Index = () => {
               </div>
               <h3 className="mt-4 text-xl font-semibold text-career-darkText">Internships</h3>
               <p className="mt-2 text-gray-600">Discover training opportunities and internship programs</p>
-              <Button variant="link" className="mt-4 text-green-600">
-                Browse Internships
-              </Button>
+              <Link to="/internships">
+                <Button variant="link" className="mt-4 text-green-600">
+                  Browse Internships
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -162,9 +173,11 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-3xl font-bold text-career-darkText">Featured Opportunities</h2>
-            <Button variant="outline" className="text-career-purple border-career-purple hover:bg-career-purple/5">
-              View All Jobs
-            </Button>
+            <Link to="/jobs">
+              <Button variant="outline" className="text-career-purple border-career-purple hover:bg-career-purple/5">
+                View All Jobs
+              </Button>
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -183,9 +196,11 @@ const Index = () => {
               <h2 className="text-3xl font-bold text-career-darkText">Career Resources</h2>
               <p className="mt-2 text-gray-600">Guides and tools to help you succeed</p>
             </div>
-            <Button variant="outline" className="text-career-purple border-career-purple hover:bg-career-purple/5">
-              All Resources
-            </Button>
+            <Link to="/resources">
+              <Button variant="outline" className="text-career-purple border-career-purple hover:bg-career-purple/5">
+                All Resources
+              </Button>
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -204,12 +219,16 @@ const Index = () => {
             Create your profile today to get personalized job recommendations and access career resources.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-            <Button className="bg-career-purple hover:bg-career-purple/90 text-white px-6 py-6 rounded-md">
-              Create Free Account
-            </Button>
-            <Button variant="outline" className="border-white text-white hover:bg-white/10 px-6 py-6 rounded-md">
-              Learn More
-            </Button>
+            <Link to="/auth">
+              <Button className="bg-career-purple hover:bg-career-purple/90 text-white px-6 py-6 rounded-md">
+                Create Free Account
+              </Button>
+            </Link>
+            <Link to="/resources">
+              <Button variant="outline" className="border-white text-white hover:bg-white/10 px-6 py-6 rounded-md">
+                Learn More
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
