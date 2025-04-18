@@ -7,9 +7,26 @@ interface JobsListProps {
   jobs: JobCardProps[];
   currentPage: number;
   setCurrentPage: (page: number) => void;
+  isLoading?: boolean;
 }
 
-const JobsList = ({ jobs, currentPage, setCurrentPage }: JobsListProps) => {
+const JobsList = ({ jobs, currentPage, setCurrentPage, isLoading }: JobsListProps) => {
+  if (isLoading) {
+    return (
+      <div className="text-center py-8">
+        <p className="text-gray-500">Loading jobs...</p>
+      </div>
+    );
+  }
+
+  if (jobs.length === 0) {
+    return (
+      <div className="text-center py-8">
+        <p className="text-gray-500">No jobs found</p>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="mb-6 flex justify-between items-center">

@@ -1,45 +1,15 @@
 
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import JobCard, { JobCardProps } from "@/components/jobs/JobCard";
-
-const FEATURED_JOBS: JobCardProps[] = [
-  {
-    id: "job1",
-    title: "Software Engineer",
-    company: "TechFusion Inc.",
-    location: "New York, NY",
-    salary: "$90,000 - $120,000",
-    jobType: "Full-time",
-    postedDate: "2 days ago",
-    isRemote: true,
-    tags: ["React", "JavaScript", "Node.js"],
-    matchPercentage: 94,
-  },
-  {
-    id: "job2",
-    title: "Marketing Specialist",
-    company: "Brand Elevate",
-    location: "London, UK",
-    jobType: "Full-time",
-    postedDate: "3 days ago",
-    tags: ["Digital Marketing", "Social Media", "SEO"],
-    matchPercentage: 87,
-  },
-  {
-    id: "job3",
-    title: "Data Analyst Intern",
-    company: "DataSphere",
-    location: "Remote",
-    jobType: "Internship",
-    postedDate: "1 week ago",
-    isRemote: true,
-    tags: ["Python", "SQL", "Data Visualization"],
-    matchPercentage: 82,
-  },
-];
+import JobCard from "@/components/jobs/JobCard";
+import { useJobs } from "@/hooks/useJobs";
 
 const FeaturedJobsSection = () => {
+  const { data: jobs = [], isLoading } = useJobs();
+  
+  // Take only the first 3 jobs for the featured section
+  const featuredJobs = jobs.slice(0, 3);
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,11 +23,17 @@ const FeaturedJobsSection = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {FEATURED_JOBS.map((job) => (
-            <Link to={`/jobs/${job.id}`} key={job.id} className="block hover:no-underline">
-              <JobCard {...job} />
-            </Link>
-          ))}
+          {isLoading ? (
+            <div className="col-span-3 text-center py-8">Loading jobs...</div>
+          ) : featuredJobs.length > 0 ? (
+            featuredJobs.map((job) => (
+              <Link to={`/jobs/${job.id}`} key={job.id} className="block hover:no-underline">
+                <JobCard {...job} />
+              </Link>
+            ))
+          ) : (
+            <div className="col-span-3 text-center py-8">No jobs available</div>
+          )}
         </div>
       </div>
     </section>
