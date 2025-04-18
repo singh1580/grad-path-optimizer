@@ -75,7 +75,10 @@ const Navbar = () => {
             {user ? (
               // User is logged in
               <div className="flex items-center space-x-4">
-                <Button className="bg-career-purple hover:bg-career-purple/90">
+                <Button 
+                  className="bg-career-purple hover:bg-career-purple/90"
+                  onClick={() => navigate("/post-job")}
+                >
                   <BriefcaseBusiness className="h-5 w-5 mr-2" />
                   <span>Post a Job</span>
                 </Button>

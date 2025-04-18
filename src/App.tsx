@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import Index from "./pages/Index";
 import Jobs from "./pages/Jobs";
+import PostJob from "./pages/PostJob";
 import Internships from "./pages/Internships";
 import Resources from "./pages/Resources";
 import Auth from "./pages/Auth";
@@ -29,6 +30,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/jobs" element={<Jobs />} />
               <Route path="/jobs/:jobId" element={<Jobs />} />
+              <Route path="/post-job" element={<PostJob />} />
               <Route path="/internships" element={<Internships />} />
               <Route path="/resources" element={<Resources />} />
               <Route path="/auth" element={<Auth />} />
