@@ -1,14 +1,9 @@
-
 import { useState } from "react";
-import { Search, Filter } from "lucide-react";
-import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
-import JobCard, { JobCardProps } from "@/components/jobs/JobCard";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Separator } from "@/components/ui/separator";
+import JobsHeader from "@/components/jobs/JobsHeader";
+import JobFilters from "@/components/jobs/JobFilters";
+import JobsList from "@/components/jobs/JobsList";
+import { JobCardProps } from "@/components/jobs/JobCard";
 
 const JOBS_DATA: JobCardProps[] = [
   {
@@ -80,214 +75,46 @@ const JOBS_DATA: JobCardProps[] = [
   }
 ];
 
-const jobTypes = ["Full-time", "Part-time", "Contract", "Remote", "Internship"];
-const locations = ["New York", "London", "Remote", "San Francisco", "Singapore", "Toronto"];
-const experiences = ["Entry Level", "Mid Level", "Senior Level", "Director", "Executive"];
-
 const Jobs = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   
   const handleSearch = () => {
     console.log("Searching for:", searchTerm);
-    // Search functionality would be implemented here
   };
 
   const handleFilterApply = () => {
     console.log("Applying filters");
-    // Filter application would be implemented here
   };
 
   const handleFilterReset = () => {
     console.log("Resetting all filters");
-    // Reset logic would be implemented here
   };
   
   return (
     <Layout>
-      {/* Header */}
-      <section className="bg-gradient-to-r from-career-purple to-career-blue py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-3xl font-bold text-white">Find Your Perfect Job</h1>
-          <p className="mt-2 text-white/90">
-            Browse through thousands of job opportunities tailored for graduates
-          </p>
-        </div>
-      </section>
+      <JobsHeader 
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        handleSearch={handleSearch}
+      />
       
-      {/* Search Bar */}
-      <section className="py-6 border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row gap-3">
-            <div className="flex-grow relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
-              <Input 
-                type="text"
-                placeholder="Job titles, skills, or keywords"
-                className="pl-10"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-            <Button className="bg-career-purple hover:bg-career-purple/90" onClick={handleSearch}>
-              Search Jobs
-            </Button>
-          </div>
-        </div>
-      </section>
-      
-      {/* Main Content */}
       <section className="py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-8">
-            {/* Filters Sidebar */}
             <div className="lg:w-1/4">
-              <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-5">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-lg font-semibold">Filters</h2>
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="text-sm text-career-purple"
-                    onClick={handleFilterReset}
-                  >
-                    Reset All
-                  </Button>
-                </div>
-                
-                <Separator className="my-4" />
-                
-                <div className="space-y-5">
-                  {/* Job Type */}
-                  <div>
-                    <h3 className="font-medium mb-3">Job Type</h3>
-                    <div className="space-y-2">
-                      {jobTypes.map((type) => (
-                        <div key={type} className="flex items-center space-x-2">
-                          <Checkbox id={`job-type-${type}`} />
-                          <label htmlFor={`job-type-${type}`} className="text-sm text-gray-700">
-                            {type}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <Separator className="my-4" />
-                  
-                  {/* Location */}
-                  <div>
-                    <h3 className="font-medium mb-3">Location</h3>
-                    <div className="space-y-2">
-                      {locations.map((location) => (
-                        <div key={location} className="flex items-center space-x-2">
-                          <Checkbox id={`location-${location}`} />
-                          <label htmlFor={`location-${location}`} className="text-sm text-gray-700">
-                            {location}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <Separator className="my-4" />
-                  
-                  {/* Experience Level */}
-                  <div>
-                    <h3 className="font-medium mb-3">Experience Level</h3>
-                    <div className="space-y-2">
-                      {experiences.map((exp) => (
-                        <div key={exp} className="flex items-center space-x-2">
-                          <Checkbox id={`exp-${exp}`} />
-                          <label htmlFor={`exp-${exp}`} className="text-sm text-gray-700">
-                            {exp}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <Separator className="my-4" />
-                  
-                  <Button 
-                    className="w-full bg-career-purple hover:bg-career-purple/90"
-                    onClick={handleFilterApply}
-                  >
-                    Apply Filters
-                  </Button>
-                </div>
-              </div>
+              <JobFilters 
+                handleFilterApply={handleFilterApply}
+                handleFilterReset={handleFilterReset}
+              />
             </div>
             
-            {/* Job Listings */}
             <div className="lg:w-3/4">
-              <div className="mb-6 flex justify-between items-center">
-                <div>
-                  <h2 className="text-xl font-semibold">Available Jobs</h2>
-                  <p className="text-gray-500 text-sm">{JOBS_DATA.length} jobs found</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-600">Sort by:</span>
-                  <select className="text-sm border border-gray-300 rounded-md px-2 py-1">
-                    <option>Relevance</option>
-                    <option>Most Recent</option>
-                    <option>Match Score</option>
-                  </select>
-                </div>
-              </div>
-              
-              <div className="space-y-4">
-                {JOBS_DATA.map((job) => (
-                  <Link to={`/jobs/${job.id}`} key={job.id} className="block hover:no-underline">
-                    <JobCard {...job} />
-                  </Link>
-                ))}
-              </div>
-              
-              <div className="mt-8 flex justify-center">
-                <div className="flex items-center gap-2">
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="text-gray-500" 
-                    disabled={currentPage === 1}
-                    onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                  >
-                    Previous
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className={currentPage === 1 ? "bg-career-purple text-white" : ""}
-                    onClick={() => setCurrentPage(1)}
-                  >
-                    1
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className={currentPage === 2 ? "bg-career-purple text-white" : ""}
-                    onClick={() => setCurrentPage(2)}
-                  >
-                    2
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className={currentPage === 3 ? "bg-career-purple text-white" : ""}
-                    onClick={() => setCurrentPage(3)}
-                  >
-                    3
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    onClick={() => setCurrentPage(prev => prev + 1)}
-                  >
-                    Next
-                  </Button>
-                </div>
-              </div>
+              <JobsList 
+                jobs={JOBS_DATA}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
             </div>
           </div>
         </div>
