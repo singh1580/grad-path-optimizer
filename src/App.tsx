@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -14,8 +13,8 @@ import Resources from "./pages/Resources";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import Profile from "./pages/Profile";
 
-// Create a client
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -34,7 +33,7 @@ const App = () => (
               <Route path="/internships" element={<Internships />} />
               <Route path="/resources" element={<Resources />} />
               <Route path="/auth" element={<Auth />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="/profile" element={<Profile />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

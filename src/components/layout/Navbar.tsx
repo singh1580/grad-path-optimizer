@@ -44,7 +44,7 @@ const Navbar = () => {
               <span className="ml-2 text-xl font-bold text-career-darkText">GradPath</span>
             </Link>
             <div className="hidden md:ml-12 md:flex md:space-x-8">
-              <Link to="/" className="inline-flex items-center px-1 pt-1 border-b-2 border-career-purple text-sm font-medium">
+              <Link to="/" className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${location.pathname === "/" ? "text-career-purple" : "text-gray-600 hover:text-gray-800"}`}>
                 Home
               </Link>
               <Link to="/jobs" className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-600 hover:text-gray-800 hover:border-gray-300">

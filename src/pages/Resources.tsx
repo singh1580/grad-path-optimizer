@@ -1,8 +1,12 @@
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Layout from "@/components/layout/Layout";
 import ResourceCard, { ResourceCardProps } from "@/components/resources/ResourceCard";
 import { BookOpen, FileText, Users, Compass, PenTool, VideoIcon, BookMarked, LightbulbIcon, ChevronRight } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
 
 // Resource data for different categories
 const CAREER_GUIDES: ResourceCardProps[] = [
@@ -102,6 +106,21 @@ const MENTORSHIP_MATERIALS: ResourceCardProps[] = [
 ];
 
 const Resources = () => {
+  const [showMentorshipDialog, setShowMentorshipDialog] = useState(false);
+  const [mentorshipFormData, setMentorshipFormData] = useState({
+    name: "",
+    email: "",
+    interests: "",
+    experience: ""
+  });
+
+  const handleMentorshipSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Here you would typically submit the form data
+    toast.success("Application submitted successfully!");
+    setShowMentorshipDialog(false);
+  };
+
   return (
     <Layout>
       {/* Header */}
@@ -262,10 +281,64 @@ const Resources = () => {
                 <p className="text-gray-600 mt-2 max-w-2xl mx-auto">
                   Our mentorship program connects you with experienced professionals who can provide guidance, feedback, and insights to help you navigate your career path.
                 </p>
-                <button className="mt-4 bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-md">
+                <button 
+                  onClick={() => setShowMentorshipDialog(true)}
+                  className="mt-4 text-green-600 hover:text-green-700 border border-green-600 hover:bg-green-50 py-2 px-6 rounded-md"
+                >
                   Join Mentorship Program
                 </button>
               </div>
+
+              <Dialog open={showMentorshipDialog} onOpenChange={setShowMentorshipDialog}>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Join Mentorship Program</DialogTitle>
+                    <DialogDescription>
+                      Please provide some information to help us match you with the right mentor.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <form onSubmit={handleMentorshipSubmit} className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">Full Name</label>
+                      <Input
+                        required
+                        value={mentorshipFormData.name}
+                        onChange={(e) => setMentorshipFormData({...mentorshipFormData, name: e.target.value})}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">Email</label>
+                      <Input
+                        type="email"
+                        required
+                        value={mentorshipFormData.email}
+                        onChange={(e) => setMentorshipFormData({...mentorshipFormData, email: e.target.value})}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">Areas of Interest</label>
+                      <Input
+                        required
+                        value={mentorshipFormData.interests}
+                        onChange={(e) => setMentorshipFormData({...mentorshipFormData, interests: e.target.value})}
+                        placeholder="e.g., Software Development, Marketing, Finance"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">Years of Experience</label>
+                      <Input
+                        required
+                        value={mentorshipFormData.experience}
+                        onChange={(e) => setMentorshipFormData({...mentorshipFormData, experience: e.target.value})}
+                        placeholder="e.g., 2 years"
+                      />
+                    </div>
+                    <DialogFooter>
+                      <Button type="submit">Submit Application</Button>
+                    </DialogFooter>
+                  </form>
+                </DialogContent>
+              </Dialog>
             </TabsContent>
           </Tabs>
         </div>

@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { GraduationCap, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
 
@@ -36,8 +35,8 @@ const Footer = () => {
             <ul className="mt-4 space-y-2">
               <li><Link to="/jobs" className="text-sm text-gray-600 hover:text-career-purple">Browse Jobs</Link></li>
               <li><Link to="/internships" className="text-sm text-gray-600 hover:text-career-purple">Find Internships</Link></li>
-              <li><Link to="/international" className="text-sm text-gray-600 hover:text-career-purple">International Jobs</Link></li>
-              <li><Link to="/government" className="text-sm text-gray-600 hover:text-career-purple">Government Sector</Link></li>
+              <li><Link to="/jobs" className="text-sm text-gray-600 hover:text-career-purple">International Jobs</Link></li>
+              <li><Link to="/jobs" className="text-sm text-gray-600 hover:text-career-purple">Government Sector</Link></li>
             </ul>
           </div>
 
@@ -45,9 +44,9 @@ const Footer = () => {
             <h3 className="text-sm font-semibold text-gray-900 tracking-wider uppercase">Resources</h3>
             <ul className="mt-4 space-y-2">
               <li><Link to="/resources" className="text-sm text-gray-600 hover:text-career-purple">Career Guidance</Link></li>
-              <li><Link to="/resume-builder" className="text-sm text-gray-600 hover:text-career-purple">Resume Builder</Link></li>
-              <li><Link to="/interview-prep" className="text-sm text-gray-600 hover:text-career-purple">Interview Preparation</Link></li>
-              <li><Link to="/mentorship" className="text-sm text-gray-600 hover:text-career-purple">Mentorship Program</Link></li>
+              <li><Link to="/resources" className="text-sm text-gray-600 hover:text-career-purple">Resume Builder</Link></li>
+              <li><Link to="/resources" className="text-sm text-gray-600 hover:text-career-purple">Interview Preparation</Link></li>
+              <li><Link to="/resources" className="text-sm text-gray-600 hover:text-career-purple">Mentorship Program</Link></li>
             </ul>
           </div>
 
