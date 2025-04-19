@@ -9,6 +9,54 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      internships: {
+        Row: {
+          company: string
+          created_at: string | null
+          description: string
+          duration: string | null
+          id: string
+          is_remote: boolean | null
+          location: string
+          posted_by: string
+          requirements: string[] | null
+          skills_required: string[] | null
+          stipend: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          company: string
+          created_at?: string | null
+          description: string
+          duration?: string | null
+          id?: string
+          is_remote?: boolean | null
+          location: string
+          posted_by: string
+          requirements?: string[] | null
+          skills_required?: string[] | null
+          stipend?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          company?: string
+          created_at?: string | null
+          description?: string
+          duration?: string | null
+          id?: string
+          is_remote?: boolean | null
+          location?: string
+          posted_by?: string
+          requirements?: string[] | null
+          skills_required?: string[] | null
+          stipend?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       jobs: {
         Row: {
           company: string
@@ -63,6 +111,7 @@ export type Database = {
           created_at: string
           full_name: string | null
           id: string
+          is_mentor: boolean | null
           updated_at: string
           user_type: string | null
         }
@@ -71,6 +120,7 @@ export type Database = {
           created_at?: string
           full_name?: string | null
           id: string
+          is_mentor?: boolean | null
           updated_at?: string
           user_type?: string | null
         }
@@ -79,6 +129,7 @@ export type Database = {
           created_at?: string
           full_name?: string | null
           id?: string
+          is_mentor?: boolean | null
           updated_at?: string
           user_type?: string | null
         }

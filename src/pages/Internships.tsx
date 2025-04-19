@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Search, Filter, BookOpen, Briefcase } from "lucide-react";
 import Layout from "@/components/layout/Layout";
@@ -8,61 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
-
-const INTERNSHIPS_DATA: JobCardProps[] = [
-  {
-    id: "intern1",
-    title: "Software Engineering Intern",
-    company: "TechFusion Inc.",
-    location: "New York, NY",
-    jobType: "Internship",
-    postedDate: "2 days ago",
-    isRemote: false,
-    tags: ["Java", "Spring", "Git"],
-    matchPercentage: 92,
-  },
-  {
-    id: "intern2",
-    title: "Marketing Intern",
-    company: "Brand Elevate",
-    location: "London, UK",
-    jobType: "Internship",
-    postedDate: "3 days ago",
-    tags: ["Content Creation", "Social Media", "Analytics"],
-    matchPercentage: 85,
-  },
-  {
-    id: "intern3",
-    title: "Data Science Intern",
-    company: "DataSphere",
-    location: "Remote",
-    jobType: "Internship",
-    postedDate: "1 week ago",
-    isRemote: true,
-    tags: ["Python", "Machine Learning", "Data Analysis"],
-    matchPercentage: 89,
-  },
-  {
-    id: "intern4",
-    title: "UX Research Intern",
-    company: "Creative Solutions",
-    location: "San Francisco, CA",
-    jobType: "Internship",
-    postedDate: "5 days ago",
-    tags: ["User Research", "Prototyping", "Usability Testing"],
-    matchPercentage: 91,
-  },
-  {
-    id: "intern5",
-    title: "Finance Intern",
-    company: "Investment Partners",
-    location: "Toronto, Canada",
-    jobType: "Internship",
-    postedDate: "4 days ago",
-    tags: ["Financial Analysis", "Excel", "Accounting"],
-    matchPercentage: 82,
-  },
-];
+import { useInternships } from "@/hooks/useInternships";
 
 const durations = ["3 months", "6 months", "Summer", "Fall", "Year-round"];
 const locations = ["New York", "London", "Remote", "San Francisco", "Singapore", "Toronto"];
@@ -70,6 +15,7 @@ const fields = ["Technology", "Marketing", "Finance", "Design", "Data Science"];
 
 const Internships = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const { data: internships = [], isLoading } = useInternships(searchTerm);
   
   return (
     <Layout>
@@ -211,7 +157,9 @@ const Internships = () => {
               <div className="mb-6 flex justify-between items-center">
                 <div>
                   <h2 className="text-xl font-semibold">Available Internships</h2>
-                  <p className="text-gray-500 text-sm">{INTERNSHIPS_DATA.length} internships found</p>
+                  <p className="text-gray-500 text-sm">
+                    {internships.length} internships found
+                  </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-gray-600">Sort by:</span>
@@ -224,9 +172,25 @@ const Internships = () => {
               </div>
               
               <div className="space-y-4">
-                {INTERNSHIPS_DATA.map((internship) => (
-                  <JobCard key={internship.id} {...internship} />
-                ))}
+                {isLoading ? (
+                  <div className="text-center py-8">Loading internships...</div>
+                ) : internships.length > 0 ? (
+                  internships.map((internship) => (
+                    <JobCard
+                      key={internship.id}
+                      id={internship.id}
+                      title={internship.title}
+                      company={internship.company}
+                      location={internship.location}
+                      jobType="Internship"
+                      postedDate={internship.postedDate}
+                      isRemote={internship.isRemote}
+                      tags={internship.skillsRequired || []}
+                    />
+                  ))
+                ) : (
+                  <div className="text-center py-8">No internships found</div>
+                )}
               </div>
               
               <div className="mt-8 flex justify-center">
