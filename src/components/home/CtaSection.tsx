@@ -17,7 +17,7 @@ const CtaSection = () => {
             </Button>
           </Link>
           <Link to="/resources">
-            <Button variant="outline" className="border-white text-white hover:bg-white/10 px-6 py-6 rounded-md">
+            <Button variant="outline" className="bg-career-purple hover:bg-career-purple/90 text-white border-white px-6 py-6 rounded-md">
               Learn More
             </Button>
           </Link>

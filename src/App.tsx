@@ -14,6 +14,7 @@ import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Profile from "./pages/Profile";
+import { CreatePost } from "./components/posts/CreatePost";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ const App = () => (
               <Route path="/resources" element={<Resources />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/posts/create" element={<CreatePost />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

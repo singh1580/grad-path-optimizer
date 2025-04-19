@@ -26,7 +26,7 @@ const CategoryCard = ({
       <h3 className="mt-4 text-xl font-semibold text-career-darkText">{title}</h3>
       <p className="mt-2 text-gray-600">{description}</p>
       <Link to={linkTo}>
-        <Button variant="link" className={`mt-4 ${colorClass.replace('/10', '')}`}>
+        <Button variant="link" className="mt-4 text-career-purple hover:text-career-purple/90">
           {linkText}
         </Button>
       </Link>
