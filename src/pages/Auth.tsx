@@ -1,16 +1,10 @@
+
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { toast } from "sonner";
 
@@ -37,6 +31,9 @@ const Auth = () => {
         const { error, data } = await signIn(email, password);
         if (error) throw error;
         const userRole = data?.user?.user_metadata?.role;
+        console.log("User role:", userRole);
+        console.log("User data:", data);
+        
         if (userRole === "student") navigate("/student-dashboard");
         else if (userRole === "employer") navigate("/employer-dashboard");
         else navigate(location.state?.from?.pathname || "/");

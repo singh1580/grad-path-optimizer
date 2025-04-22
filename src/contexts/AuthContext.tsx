@@ -1,3 +1,4 @@
+
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { User, Session } from "@supabase/supabase-js";
@@ -27,12 +28,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        console.log("Auth state change:", event, session);
         setSession(session);
         setUser(session?.user ?? null);
       }
     );
 
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log("Initial session:", session);
       setSession(session);
       setUser(session?.user ?? null);
       setIsLoading(false);
@@ -45,7 +48,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(true);
     const response = await supabase.auth.signInWithPassword({ email, password });
     setIsLoading(false);
-
+    
+    console.log("Sign in response:", response);
     return {
       error: response.error,
       data: response.data
@@ -60,6 +64,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     role: string
   ) => {
     setIsLoading(true);
+    console.log("Signing up with role:", role);
     const response = await supabase.auth.signUp({
       email,
       password,
@@ -72,6 +77,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     });
     setIsLoading(false);
+    
+    console.log("Sign up response:", response);
     return {
       error: response.error,
       data: response.data

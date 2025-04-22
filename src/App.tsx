@@ -34,19 +34,31 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/jobs" element={<Jobs />} />
               <Route path="/jobs/:jobId" element={<Jobs />} />
-              <Route path="/post-job" element={<PostJob />} />
+              <Route path="/post-job" element={
+                <ProtectedRoute requiredRole="employer">
+                  <PostJob />
+                </ProtectedRoute>
+              } />
               <Route path="/internships" element={<Internships />} />
               <Route path="/resources" element={<Resources />} />
               <Route path="/auth" element={<Auth />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/posts/create" element={<CreatePost />} />
-              <Route path="/student-dashboard" element={
+              <Route path="/profile" element={
                 <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              } />
+              <Route path="/posts/create" element={
+                <ProtectedRoute>
+                  <CreatePost />
+                </ProtectedRoute>
+              } />
+              <Route path="/student-dashboard" element={
+                <ProtectedRoute requiredRole="student">
                   <StudentDashboard />
                 </ProtectedRoute>
               } />
               <Route path="/employer-dashboard" element={
-                <ProtectedRoute>
+                <ProtectedRoute requiredRole="employer">
                   <EmployerDashboard />
                 </ProtectedRoute>
               } />
