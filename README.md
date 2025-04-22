@@ -1,73 +1,106 @@
-# Welcome to your Lovable project
 
-## Project info
+# Career Connect: AI-Powered Job Search Platform
 
-**URL**: https://lovable.dev/projects/5d74f356-2d56-4876-84a3-358bc8b44629
+## Project Overview
 
-## How can I edit this code?
+Career Connect is an innovative web application designed to revolutionize the job search experience for recent graduates and professionals. Leveraging cutting-edge technologies and AI-driven matching, the platform provides a comprehensive solution for career development and job hunting.
 
-There are several ways of editing your application.
+## Key Features
 
-**Use Lovable**
+### 1. Job Discovery
+- Explore a wide range of job opportunities across multiple sectors
+- Advanced search and filtering capabilities
+- Detailed job listings with comprehensive information
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/5d74f356-2d56-4876-84a3-358bc8b44629) and start prompting.
+### 2. AI-Powered Matching
+- Intelligent job recommendations
+- Personalized career insights
+- Skill-based job matching algorithm
 
-Changes made via Lovable will be committed automatically to this repo.
+### 3. Career Resources
+- Extensive collection of career development resources
+- Internship opportunities
+- Professional development guides
 
-**Use your preferred IDE**
+### 4. User Authentication
+- Secure user registration and login
+- Personalized user profiles
+- Save and track job applications
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Technologies Used
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Frontend
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- Shadcn UI
+- React Router
+- Tanstack React Query
 
-Follow these steps:
+### Backend
+- Supabase (Authentication, Database, Storage)
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### State Management
+- React Context API
+- Tanstack React Query
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Authentication
+- Supabase Auth
+- Email/Password Authentication
 
-# Step 3: Install the necessary dependencies.
-npm i
+## Project Structure
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```
+src/
+├── components/
+│   ├── home/           # Homepage component sections
+│   ├── jobs/           # Job-related components
+│   ├── layout/         # Layout and navigation components
+│   └── ui/             # Reusable UI components
+├── hooks/              # Custom React hooks
+├── pages/              # Top-level page components
+├── contexts/           # React context providers
+└── integrations/       # External service integrations
+```
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v18+)
+- npm or bun
+
+### Installation Steps
+```bash
+# Clone the repository
+git clone <repository-url>
+
+# Navigate to project directory
+cd career-connect
+
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Deployment
+The project can be easily deployed using Lovable's one-click publish feature.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Contributing
+Contributions are welcome! Please follow these steps:
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
-**Use GitHub Codespaces**
+## License
+This project is licensed under the MIT License.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Contact
+For support or inquiries, please reach out to our team.
 
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/5d74f356-2d56-4876-84a3-358bc8b44629) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## Powered by Lovable
+Built with ❤️ using [Lovable](https://lovable.dev)

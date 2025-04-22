@@ -105,6 +105,21 @@ export type Database = {
         }
         Relationships: []
       }
+      "join mentorship program": {
+        Row: {
+          created_at: string
+          id: number
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+        }
+        Update: {
+          created_at?: string
+          id?: number
+        }
+        Relationships: []
+      }
       posts: {
         Row: {
           content: string
