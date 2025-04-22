@@ -64,14 +64,6 @@ src/
 └── integrations/       # External service integrations
 ```
 
-## Getting Started
-
-### Prerequisites
-- Node.js (v18+)
-- npm or bun
-
-### Installation Steps
-```bash
 # Clone the repository
 git clone <repository-url>
 
@@ -96,11 +88,4 @@ Contributions are welcome! Please follow these steps:
 4. Push to the branch
 5. Create a Pull Request
 
-## License
-This project is licensed under the MIT License.
 
-## Contact
-For support or inquiries, please reach out to our team.
-
-## Powered by Lovable
-Built with ❤️ using [Lovable](https://lovable.dev)
