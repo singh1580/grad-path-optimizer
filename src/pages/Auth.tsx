@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -23,23 +22,20 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
-  const [userType, setUserType] = useState("student");
   const [role, setRole] = useState("student");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       if (isSignUp) {
-        const { error, data } = await signUp(email, password, fullName, userType, role);
+        const { error, data } = await signUp(email, password, fullName, role, role);
         if (error) throw error;
         toast.success("Account created successfully! Please check your email to verify your account.");
-        // Redirect to dashboard based on role
         if (role === "student") navigate("/student-dashboard");
         if (role === "employer") navigate("/employer-dashboard");
       } else {
         const { error, data } = await signIn(email, password);
         if (error) throw error;
-        // Try to glean the role from user metadata, fallback to /
         const userRole = data?.user?.user_metadata?.role;
         if (userRole === "student") navigate("/student-dashboard");
         else if (userRole === "employer") navigate("/employer-dashboard");
@@ -77,7 +73,7 @@ const Auth = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    I am signing up as
+                    Sign up as
                   </label>
                   <RadioGroup value={role} onValueChange={setRole} className="flex gap-6">
                     <div className="flex items-center space-x-2">
@@ -89,20 +85,6 @@ const Auth = () => {
                       <label htmlFor="role-employer" className="text-sm">Employer</label>
                     </div>
                   </RadioGroup>
-                </div>
-                <div>
-                  <label htmlFor="userType" className="block text-sm font-medium text-gray-700">
-                    I am a
-                  </label>
-                  <Select value={userType} onValueChange={setUserType}>
-                    <SelectTrigger className="mt-1">
-                      <SelectValue placeholder="Select user type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="student">Student</SelectItem>
-                      <SelectItem value="mentor">Mentor</SelectItem>
-                    </SelectContent>
-                  </Select>
                 </div>
               </>
             )}
