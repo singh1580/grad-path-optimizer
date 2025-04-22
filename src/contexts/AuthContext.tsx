@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { User, Session } from "@supabase/supabase-js";
@@ -9,11 +8,11 @@ type AuthContextType = {
   isLoading: boolean;
   signIn: (email: string, password: string) => Promise<{
     error: any | null;
-    data: Session | null;
+    data: any | null;
   }>;
-  signUp: (email: string, password: string, fullName: string, userType: string) => Promise<{
+  signUp: (email: string, password: string, fullName: string, userType: string, role: string) => Promise<{
     error: any | null;
-    data: Session | null;
+    data: any | null;
   }>;
   signOut: () => Promise<void>;
 };
@@ -26,7 +25,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
         setSession(session);
@@ -34,7 +32,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     );
 
-    // THEN check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
@@ -48,14 +45,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(true);
     const response = await supabase.auth.signInWithPassword({ email, password });
     setIsLoading(false);
-    
+
     return {
       error: response.error,
-      data: response.data.session
+      data: response.data
     };
   };
 
-  const signUp = async (email: string, password: string, fullName: string, userType: string) => {
+  const signUp = async (
+    email: string,
+    password: string,
+    fullName: string,
+    userType: string,
+    role: string
+  ) => {
     setIsLoading(true);
     const response = await supabase.auth.signUp({
       email,
@@ -63,15 +66,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       options: {
         data: {
           full_name: fullName,
-          user_type: userType
+          user_type: userType,
+          role
         }
       }
     });
     setIsLoading(false);
-    
     return {
       error: response.error,
-      data: response.data.session
+      data: response.data
     };
   };
 

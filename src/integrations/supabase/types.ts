@@ -9,6 +9,45 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      employer_profiles: {
+        Row: {
+          company_description: string | null
+          company_name: string | null
+          company_size: string | null
+          created_at: string | null
+          id: string
+          industry: string | null
+          location: string | null
+          logo_url: string | null
+          updated_at: string | null
+          website: string | null
+        }
+        Insert: {
+          company_description?: string | null
+          company_name?: string | null
+          company_size?: string | null
+          created_at?: string | null
+          id: string
+          industry?: string | null
+          location?: string | null
+          logo_url?: string | null
+          updated_at?: string | null
+          website?: string | null
+        }
+        Update: {
+          company_description?: string | null
+          company_name?: string | null
+          company_size?: string | null
+          created_at?: string | null
+          id?: string
+          industry?: string | null
+          location?: string | null
+          logo_url?: string | null
+          updated_at?: string | null
+          website?: string | null
+        }
+        Relationships: []
+      }
       internships: {
         Row: {
           company: string
@@ -154,6 +193,7 @@ export type Database = {
           full_name: string | null
           id: string
           is_mentor: boolean | null
+          role: string | null
           updated_at: string
           user_type: string | null
         }
@@ -163,6 +203,7 @@ export type Database = {
           full_name?: string | null
           id: string
           is_mentor?: boolean | null
+          role?: string | null
           updated_at?: string
           user_type?: string | null
         }
@@ -172,6 +213,7 @@ export type Database = {
           full_name?: string | null
           id?: string
           is_mentor?: boolean | null
+          role?: string | null
           updated_at?: string
           user_type?: string | null
         }
@@ -205,6 +247,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      student_profiles: {
+        Row: {
+          bio: string | null
+          created_at: string | null
+          education: string | null
+          experience: string | null
+          id: string
+          resume_url: string | null
+          skills: string[] | null
+          updated_at: string | null
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string | null
+          education?: string | null
+          experience?: string | null
+          id: string
+          resume_url?: string | null
+          skills?: string[] | null
+          updated_at?: string | null
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string | null
+          education?: string | null
+          experience?: string | null
+          id?: string
+          resume_url?: string | null
+          skills?: string[] | null
+          updated_at?: string | null
+        }
+        Relationships: []
       }
     }
     Views: {

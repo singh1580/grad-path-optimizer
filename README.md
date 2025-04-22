@@ -1,91 +1,112 @@
 
-# Career Connect: AI-Powered Job Search Platform
+# Career Connect: AI-Powered Job & Internship Search Platform
 
-## Project Overview
+## Overview
 
-Career Connect is an innovative web application designed to revolutionize the job search experience for recent graduates and professionals. Leveraging cutting-edge technologies and AI-driven matching, the platform provides a comprehensive solution for career development and job hunting.
+Career Connect is an all-in-one web platform designed to empower recent graduates, students, and employers to connect for career, internship, and hiring opportunities. Powered by AI-driven matching and modern design, it provides tools for job seekers and employers alike, with a central admin panel for management.
 
-## Key Features
+---
 
-### 1. Job Discovery
-- Explore a wide range of job opportunities across multiple sectors
-- Advanced search and filtering capabilities
-- Detailed job listings with comprehensive information
+## 🔒 Authentication with Role Integration
 
-### 2. AI-Powered Matching
-- Intelligent job recommendations
-- Personalized career insights
-- Skill-based job matching algorithm
+- **Sign Up / Login Flow**: Users sign up or log in using email. 
+- **Role-based Signup**: New users select their role (Student or Employer) via a clear radio group at sign up.
+- **Role Storage**: The chosen role is stored in Supabase user metadata and in the `profiles` table (`role` column).
+- **After Signup Redirects**:
+  - Students are redirected to `/student-dashboard`
+  - Employers are redirected to `/employer-dashboard`
 
-### 3. Career Resources
-- Extensive collection of career development resources
-- Internship opportunities
-- Professional development guides
+---
 
-### 4. User Authentication
-- Secure user registration and login
-- Personalized user profiles
-- Save and track job applications
+## 🧑‍🎓 Student Dashboard
 
-## Technologies Used
+An interactive, easy-to-use workspace for students to manage and enhance their career journey:
 
-### Frontend
-- React
-- TypeScript
-- Vite
-- Tailwind CSS
-- Shadcn UI
-- React Router
-- Tanstack React Query
+- **Dashboard Overview**: Displays user skills, applied jobs, and recommended internships in clean, card-format blocks.
+- **Search & Filter**: Filter jobs/internships by skills, qualification, and location.
+- **Resume Upload**: Securely upload and save your resume for employer review. Employers can download student resumes.
+- **Notifications**: Receive in-app and email alerts for shortlist/interview actions.
+- **Profile Management**: Update your profile and manage your skill set in real time.
+- **Interactive UX**: Uses tabs and modern card layouts for navigation and display.
 
-### Backend
-- Supabase (Authentication, Database, Storage)
+---
 
-### State Management
-- React Context API
-- Tanstack React Query
+## 🏢 Employer Dashboard
 
-### Authentication
-- Supabase Auth
-- Email/Password Authentication
+A professional control panel for companies and recruiters:
 
-## Project Structure
+- **Job Posting Insights**: View summary cards for total jobs, active/closed positions, and a "Post New Job" button.
+- **Applications Overview**: See number of applications per job, filter by status (Pending, Shortlisted, Rejected), and export application data (CSV/PDF).
+- **Candidate Profiles**: Click on a job to view all applicants, see core info (name, skills, match %, resume link), and actions (View Profile, Shortlist).
+- **Notifications Panel**: Alerts for new applications, expiring posts, and candidate messages.
+- **Analytics**: View applicant skills distribution, response rate, and general analytics via embedded cards and charts.
+- **Settings & Company Profile**: Edit company info, logo, description, and contact details.
+
+---
+
+## 🛠️ Admin Dashboard
+
+A backend panel for overview/monitoring of users, jobs, and applications:
+- See high-level stats on users, total jobs, and applications.
+- Monitor platform metrics and moderate content if needed.
+
+---
+
+## 🔥 Technologies Used
+
+- **Frontend**: React, TypeScript, Tailwind CSS, Shadcn UI, Vite, React Router, Tanstack React Query
+- **Backend**: Supabase (auth, database, storage), custom RLS policies, triggers
+- **Design**: Card layouts, Tabs, Tables, Modern interactive UI
+
+---
+
+## 📁 Project Structure
 
 ```
 src/
 ├── components/
-│   ├── home/           # Homepage component sections
-│   ├── jobs/           # Job-related components
-│   ├── layout/         # Layout and navigation components
-│   └── ui/             # Reusable UI components
-├── hooks/              # Custom React hooks
-├── pages/              # Top-level page components
-├── contexts/           # React context providers
-└── integrations/       # External service integrations
+│   ├── home/           # Homepage sections
+│   ├── jobs/           # Job/internship components
+│   ├── layout/         # Navbar, Footer, Layout
+│   ├── ui/             # UI elements (cards, tabs, table...)
+├── hooks/              # Custom hooks (e.g. fetching jobs)
+├── pages/              # Student, Employer, Admin dashboards, etc.
+├── contexts/           # Context providers, authentication
+└── integrations/       # API & service integrations (Supabase)
 ```
 
-# Clone the repository
-git clone <repository-url>
+---
 
-# Navigate to project directory
+## 🚀 Quick Start
+
+```sh
+# 1. Clone the repo
+git clone <repo-url>
 cd career-connect
 
-# Install dependencies
+# 2. Install dependencies
 npm install
 
-# Run development server
+# 3. Run development server
 npm run dev
 ```
 
-## Deployment
-The project can be easily deployed using Lovable's one-click publish feature.
+### Deployment
 
-## Contributing
-Contributions are welcome! Please follow these steps:
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+You can deploy easily using Lovable's one-click publish.
 
+---
+
+## 🤝 Contributing
+
+- Fork the repo
+- Create a feature branch
+- Commit & push your changes
+- Open a Pull Request!
+
+---
+
+## License
+
+MIT
 

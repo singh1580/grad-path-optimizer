@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { toast } from "sonner";
 
 const Auth = () => {
@@ -23,19 +24,26 @@ const Auth = () => {
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [userType, setUserType] = useState("student");
+  const [role, setRole] = useState("student");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       if (isSignUp) {
-        const { error } = await signUp(email, password, fullName, userType);
+        const { error, data } = await signUp(email, password, fullName, userType, role);
         if (error) throw error;
         toast.success("Account created successfully! Please check your email to verify your account.");
+        // Redirect to dashboard based on role
+        if (role === "student") navigate("/student-dashboard");
+        if (role === "employer") navigate("/employer-dashboard");
       } else {
-        const { error } = await signIn(email, password);
+        const { error, data } = await signIn(email, password);
         if (error) throw error;
-        const from = location.state?.from?.pathname || "/";
-        navigate(from);
+        // Try to glean the role from user metadata, fallback to /
+        const userRole = data?.user?.user_metadata?.role;
+        if (userRole === "student") navigate("/student-dashboard");
+        else if (userRole === "employer") navigate("/employer-dashboard");
+        else navigate(location.state?.from?.pathname || "/");
       }
     } catch (error: any) {
       toast.error(error.message);
@@ -66,6 +74,21 @@ const Auth = () => {
                     onChange={(e) => setFullName(e.target.value)}
                     className="mt-1"
                   />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    I am signing up as
+                  </label>
+                  <RadioGroup value={role} onValueChange={setRole} className="flex gap-6">
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="student" id="role-student" />
+                      <label htmlFor="role-student" className="text-sm">Student</label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="employer" id="role-employer" />
+                      <label htmlFor="role-employer" className="text-sm">Employer</label>
+                    </div>
+                  </RadioGroup>
                 </div>
                 <div>
                   <label htmlFor="userType" className="block text-sm font-medium text-gray-700">
