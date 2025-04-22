@@ -30,6 +30,8 @@ const ProtectedRoute = ({ children, requiredRole }: ProtectedRouteProps) => {
   if (requiredRole && user.user_metadata?.role !== requiredRole) {
     // If user doesn't have the required role, redirect to the appropriate dashboard
     const userRole = user.user_metadata?.role;
+    console.log("User role:", userRole, "Required role:", requiredRole);
+    
     if (userRole === "student") {
       return <Navigate to="/student-dashboard" replace />;
     } else if (userRole === "employer") {

@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import Layout from "@/components/layout/Layout";
@@ -7,41 +7,76 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 const Auth = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { signIn, signUp } = useAuth();
+  const { signIn, signUp, user, isLoading } = useAuth();
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [role, setRole] = useState("student");
+  const [processingAuth, setProcessingAuth] = useState(false);
+
+  // Redirect if user is already logged in
+  useEffect(() => {
+    if (user && !isLoading) {
+      const userRole = user.user_metadata?.role;
+      if (userRole === "student") {
+        navigate("/student-dashboard");
+      } else if (userRole === "employer") {
+        navigate("/employer-dashboard");
+      } else {
+        navigate(location.state?.from?.pathname || "/");
+      }
+    }
+  }, [user, isLoading, navigate, location.state]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setProcessingAuth(true);
     try {
       if (isSignUp) {
         const { error, data } = await signUp(email, password, fullName, role, role);
         if (error) throw error;
         toast.success("Account created successfully! Please check your email to verify your account.");
-        if (role === "student") navigate("/student-dashboard");
-        if (role === "employer") navigate("/employer-dashboard");
+        if (data?.user) {
+          if (role === "student") navigate("/student-dashboard");
+          else if (role === "employer") navigate("/employer-dashboard");
+          else navigate("/");
+        }
       } else {
         const { error, data } = await signIn(email, password);
         if (error) throw error;
-        const userRole = data?.user?.user_metadata?.role;
-        console.log("User role:", userRole);
-        console.log("User data:", data);
         
-        if (userRole === "student") navigate("/student-dashboard");
-        else if (userRole === "employer") navigate("/employer-dashboard");
-        else navigate(location.state?.from?.pathname || "/");
+        if (data?.user) {
+          const userRole = data.user.user_metadata?.role;
+          console.log("User role after sign in:", userRole);
+          
+          if (userRole === "student") navigate("/student-dashboard");
+          else if (userRole === "employer") navigate("/employer-dashboard");
+          else navigate(location.state?.from?.pathname || "/");
+        }
       }
     } catch (error: any) {
       toast.error(error.message);
+    } finally {
+      setProcessingAuth(false);
     }
   };
+
+  if (isLoading) {
+    return (
+      <Layout>
+        <div className="min-h-[80vh] flex items-center justify-center">
+          <Loader2 className="h-8 w-8 animate-spin text-career-purple" />
+          <span className="ml-2">Loading...</span>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
@@ -112,8 +147,19 @@ const Auth = () => {
               />
             </div>
             <div>
-              <Button type="submit" className="w-full bg-career-purple hover:bg-career-purple/90">
-                {isSignUp ? "Sign up" : "Sign in"}
+              <Button 
+                type="submit" 
+                className="w-full bg-career-purple hover:bg-career-purple/90"
+                disabled={processingAuth}
+              >
+                {processingAuth ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    {isSignUp ? "Signing up..." : "Signing in..."}
+                  </>
+                ) : (
+                  isSignUp ? "Sign up" : "Sign in"
+                )}
               </Button>
             </div>
           </form>
